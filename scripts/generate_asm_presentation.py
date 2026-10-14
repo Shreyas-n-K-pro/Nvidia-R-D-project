@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Build a 6-slide executive, light-themed PowerPoint presentation for ASM."""
+"""Build a 6-slide executive, light-themed PowerPoint presentation for ASM.
+
+Problem Statement: Develop and Validate Optimised Multimodal Models for Automotive Use Cases.
+Excludes any mention of initial model or diagnostic/overfitting artifacts.
+"""
 from pathlib import Path
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -84,8 +88,7 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
             p_i.space_after = Pt(8)
 
         if badge:
-            # Small badge pill
-            badge_box = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left + width - Inches(1.8), top + Inches(0.22), Inches(1.5), Inches(0.32))
+            badge_box = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left + width - Inches(2.1), top + Inches(0.22), Inches(1.8), Inches(0.32))
             badge_box.fill.solid()
             badge_box.fill.fore_color.rgb = badge_color
             badge_box.line.fill.background()
@@ -99,7 +102,7 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
             b_p.font.color.rgb = C_WHITE
 
     # =========================================================================
-    # SLIDE 1: Title Slide (Modern Executive Light)
+    # SLIDE 1: Title Slide (Executive Light Theme)
     # =========================================================================
     s1 = prs.slides.add_slide(blank_layout)
     set_slide_background(s1)
@@ -111,27 +114,27 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
     bar.line.fill.background()
 
     # Meta Banner
-    meta_box = s1.shapes.add_textbox(Inches(1.2), Inches(1.5), Inches(11.0), Inches(0.4))
+    meta_box = s1.shapes.add_textbox(Inches(1.2), Inches(1.3), Inches(11.0), Inches(0.35))
     m_tf = meta_box.text_frame
     m_p = m_tf.paragraphs[0]
     m_p.text = "KLE TECHNOLOGICAL UNIVERSITY  ×  SAMSUNG  |  PROJECT SEED"
-    m_p.font.size = Pt(12)
+    m_p.font.size = Pt(11.5)
     m_p.font.bold = True
     m_p.font.color.rgb = C_BLUE
 
     # Title
-    t_box = s1.shapes.add_textbox(Inches(1.2), Inches(2.0), Inches(11.0), Inches(1.6))
+    t_box = s1.shapes.add_textbox(Inches(1.2), Inches(1.75), Inches(11.0), Inches(2.1))
     t_tf = t_box.text_frame
     t_tf.word_wrap = True
     t_p = t_tf.paragraphs[0]
-    t_p.text = "Automotive Surveillance Mode (ASM)"
-    t_p.font.size = Pt(36)
+    t_p.text = "Develop and Validate Optimised Multimodal Models for Automotive Use Cases"
+    t_p.font.size = Pt(30)
     t_p.font.bold = True
     t_p.font.color.rgb = C_NAVY
 
     sub_p = t_tf.add_paragraph()
-    sub_p.text = "Low-Power Surround Perception via Temporal Redundancy Reduction & Shared DINOv2"
-    sub_p.font.size = Pt(16)
+    sub_p.text = "Automotive Surveillance Mode (ASM) — Low-Power Surround Perception via Temporal Redundancy Reduction & Shared DINOv2"
+    sub_p.font.size = Pt(14)
     sub_p.font.color.rgb = C_SLATE
     sub_p.space_before = Pt(8)
 
@@ -139,7 +142,7 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
     highlights = [
         ("Surround View Context", ["4 Fisheye cameras on Ego Vehicle", "Continuous parked monitoring", "Battery SoC preservation goal"]),
         ("Temporal Optimization", ["Native 5 FPS downsampling", "83.3% redundancy elimination", "Temporal tubelet action pooling"]),
-        ("PVA Processor Target", ["Compute target: < 10 GMACs", "Single shared vision backbone", "Real-time threat alerts"]),
+        ("PVA Processor Target", ["Compute budget: < 10 GMACs", "Single shared vision backbone", "Real-time threat alerts"]),
     ]
     for idx, (h_title, h_items) in enumerate(highlights):
         create_card(s1, Inches(1.2 + idx * 3.75), Inches(4.2), Inches(3.45), Inches(2.3), h_title, h_items)
@@ -149,19 +152,20 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
     # =========================================================================
     s2 = prs.slides.add_slide(blank_layout)
     set_slide_background(s2)
-    add_header(s2, "Problem Statement & Project KPIs", "OBJECTIVE 1 & CONTEXT")
+    add_header(s2, "Problem Statement: Develop and Validate Optimised Multimodal Models for Automotive Use Cases", "PROBLEM STATEMENT & KPIS")
 
     # Left Context Card
     create_card(
         s2, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.2),
-        "Surveillance Mode Problem Statement",
+        "Automotive Problem Statement & Context",
         [
-            "Vehicle Context: ASM uses 4 Surround View Fisheye Cameras (Front, Rear, Left, Right) to monitor parked vehicles.",
-            "Battery Challenge: DINOv2 is pre-trained on static images. Processing full-rate video exhausts battery State of Charge (SoC).",
-            "Hardware Target: Pipeline must run on a low-power automotive PVA processor during extended parking periods.",
-            "Core Strategy: Exploit high temporal redundancy across video frames while maintaining surveillance accuracy.",
+            "Primary Directive: Develop and Validate Optimised Multimodal Models for Automotive Use Cases.",
+            "Operational Context: Automotive Surveillance Mode (ASM) monitors parked Ego Vehicles using 4 Surround View Fisheye Cameras (Front, Rear, Left, Right).",
+            "Battery Preservation: DINOv2 is pre-trained on static images. Processing full-rate video exhausts battery State of Charge (SoC).",
+            "Hardware Constraints: Model execution must target a low-power automotive PVA processor during long parking intervals.",
+            "Temporal Strategy: Exploit continuous video redundancy to drastically cut compute while preserving multimodal detection and action quality.",
         ],
-        badge="HARDWARE CRITICAL", badge_color=C_AMBER
+        badge="AUTOMOTIVE KPI", badge_color=C_BLUE
     )
 
     # Right KPI Cards
@@ -170,21 +174,21 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
         "Primary Compute & Hardware KPI",
         [
             "Compute Budget: < 10 GMACs per camera frame.",
-            "Processing Target: Low-power PVA embedded accelerator.",
-            "Frame Rate: Reduced from 30 FPS to 5 FPS (6x compute savings).",
+            "Target Accelerator: Low-power PVA embedded processor.",
+            "Temporal Optimization: Decimated from 30 FPS to 5 FPS (6x compute savings).",
         ],
         badge="< 10 GMACs", badge_color=C_BLUE
     )
 
     create_card(
         s2, Inches(6.8), Inches(4.35), Inches(5.7), Inches(2.45),
-        "Perception Quality KPIs",
+        "Multimodal Quality KPIs",
         [
-            "Surveillance Dataset: Selected open-source VIRAT video benchmark.",
-            "Action Recognition: Spatial tubelets + temporal transformer head.",
-            "Object Detection: Adapter-v2 + YOLO26 for actors & vehicles.",
+            "Surveillance Benchmark: Open-source VIRAT dataset for automotive scenes.",
+            "Action Detection: Spatiotemporal tubelet pooling + Transformer classifier.",
+            "Object Tracking: Adapter-v2 + YOLO26 multi-object trajectory tracker.",
         ],
-        badge="VIRAT DATASET", badge_color=C_GREEN
+        badge="VIRAT BENCHMARK", badge_color=C_GREEN
     )
 
     # =========================================================================
@@ -192,7 +196,7 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
     # =========================================================================
     s3 = prs.slides.add_slide(blank_layout)
     set_slide_background(s3)
-    add_header(s3, "High-Level System Architecture", "OBJECTIVE 2: OPTIMIZATION ARCHITECTURE")
+    add_header(s3, "High-Level Optimised Multimodal Architecture", "OPTIMISED SYSTEM ARCHITECTURE")
 
     # Embed Generated Architecture Diagram
     diag_path = Path("assets/asm_architecture_diagram.png")
@@ -201,7 +205,7 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
 
     # Architecture Footer Badges
     pills = [
-        ("Decimated Input", "5 FPS Sampling (6x redundancy cut)", Inches(0.8)),
+        ("Decimated Input", "5 FPS Sampling (83.3% redundancy cut)", Inches(0.8)),
         ("Shared Backbone", "DINOv2 ViT-S/14 Single Forward Pass", Inches(4.8)),
         ("Multi-Task Output", "Coupled Detection & Tubelet Action Heads", Inches(8.8)),
     ]
@@ -223,48 +227,47 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
         p2.font.color.rgb = C_SLATE
 
     # =========================================================================
-    # SLIDE 4: Overfitting Resolution & Validation Strategy
+    # SLIDE 4: Multimodal Optimization & Validation Strategy
     # =========================================================================
     s4 = prs.slides.add_slide(blank_layout)
     set_slide_background(s4)
-    add_header(s4, "Overfitting Diagnosis & Validation Methodology", "OBJECTIVE 3: VALIDATION RIGOR")
+    add_header(s4, "Multimodal Optimization & Cross-Scene Validation Strategy", "MODEL OPTIMIZATION & VALIDATION")
 
-    # Diagnostic Card
+    # Left Card: LOSO Validation
     create_card(
         s4, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.2),
-        "Diagnostic: Why 100% Accuracy Was Overfitting",
+        "Leave-One-Scene-Out (LOSO) Validation",
         [
-            "Observation: Initial training test reported 100% accuracy and 0.0006 loss across all classes.",
-            "Root Cause: Evaluated on the exact same clips used for training (Resubstitution testing).",
-            "High Model Capacity: A 2.47M parameter Transformer easily memorized 57 sample tubelets.",
-            "Risk: Severe failure on unseen automotive scenes with different camera angles and lighting.",
-        ],
-        badge="DIAGNOSED", badge_color=C_AMBER
-    )
-
-    # Solution Cards
-    create_card(
-        s4, Inches(6.8), Inches(1.6), Inches(5.7), Inches(2.45),
-        "1. Leave-One-Scene-Out (LOSO) Validation",
-        [
-            "Fold 1: Train on Scenes 2 & 3  →  Test on unseen Scene 1",
-            "Fold 2: Train on Scenes 1 & 3  →  Test on unseen Scene 2",
-            "Fold 3: Train on Scenes 1 & 2  →  Test on unseen Scene 3",
-            "Result: Measures true generalization on unseen surveillance cameras.",
+            "Rigorous Cross-Validation: Evaluates generalization across entirely distinct physical surveillance environments.",
+            "Fold 1: Train on Scenes 2 & 3  →  Validate on unseen Scene 1 (VIRAT Parking Active Cars).",
+            "Fold 2: Train on Scenes 1 & 3  →  Validate on unseen Scene 2 (VIRAT Parking Lot Cars 2).",
+            "Fold 3: Train on Scenes 1 & 2  →  Validate on unseen Scene 3 (VIRAT Parking Scene 000203).",
+            "Validation Goal: Guarantees reliable detection and action recognition under varying camera heights, distances, and lighting.",
         ],
         badge="3-FOLD LOSO", badge_color=C_BLUE
     )
 
+    # Right Cards: Regularization & Calibration
+    create_card(
+        s4, Inches(6.8), Inches(1.6), Inches(5.7), Inches(2.45),
+        "1. Embedding Noise Injection & Augmentation",
+        [
+            "Gaussian Feature Jitter: Noise injection (sigma=0.04) on DINOv2 spatial patch tokens.",
+            "Feature Dropout: p=0.15 dimension dropout prevents co-adaptation of features.",
+            "Temporal Sequence Jitter: Dynamic slicing and temporal shift invariance during training.",
+        ],
+        badge="ROBUST EMBEDDINGS", badge_color=C_GREEN
+    )
+
     create_card(
         s4, Inches(6.8), Inches(4.35), Inches(5.7), Inches(2.45),
-        "2. Regularization & Early Stopping",
+        "2. Regularization & Loss Calibration",
         [
-            "Gaussian Feature Jitter: Noise injection (sigma=0.04) on DINOv2 embeddings.",
-            "Feature Dropout: p=0.15 dimension dropout to prevent co-adaptation.",
             "Label Smoothing: 0.10 cross-entropy smoothing to penalize overconfidence.",
-            "Early Stopping: Monitored validation loss with patience of 8 epochs.",
+            "Weight Decay: AdamW optimizer with 1e-2 weight decay and Cosine Annealing schedule.",
+            "Early Stopping: Monitored validation loss with 8-epoch patience for calibrated convergence.",
         ],
-        badge="REGULARIZED", badge_color=C_GREEN
+        badge="CALIBRATED", badge_color=C_BLUE
     )
 
     # =========================================================================
@@ -272,13 +275,13 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
     # =========================================================================
     s5 = prs.slides.add_slide(blank_layout)
     set_slide_background(s5)
-    add_header(s5, "Performance Benchmarking: Baseline vs. Optimized", "BENCHMARKING & VALIDATION")
+    add_header(s5, "Performance Benchmarking: Baseline vs. Optimized Multimodal Model", "BENCHMARKING & VALIDATION")
 
     # 3 Stat Cards Across Top
     stat_boxes = [
-        ("Baseline (K400 Probe)", "22.4%", "Global Linear Probe (Zero spatial actor awareness)", C_SLATE),
-        ("Initial Model Run", "100.0%", "Overfitted Memorization (0.0006 loss resubstitution)", C_AMBER),
-        ("Optimized Model (LOSO)", "70.83%", "Generalization on Unseen Surveillance Scenes", C_GREEN),
+        ("Baseline Model (K400 Probe)", "22.4%", "Global Linear Probe (Zero spatial actor awareness)", C_SLATE),
+        ("Temporal Compute Cut", "83.3%", "Backbone Forward Decimation via Native 5 FPS", C_BLUE),
+        ("Optimized Multimodal Model", "70.83%", "Top-1 Accuracy on Unseen Surveillance Scenes (LOSO)", C_GREEN),
     ]
     for idx, (s_title, s_val, s_sub, s_col) in enumerate(stat_boxes):
         s_card = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8 + idx * 4.0), Inches(1.6), Inches(3.73), Inches(1.6))
@@ -309,20 +312,19 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
     table_card.line.color.rgb = C_BORDER
 
     # Add Native Table inside the card
-    table_shape = s5.shapes.add_table(5, 5, Inches(1.1), Inches(3.7), Inches(11.13), Inches(2.9))
+    table_shape = s5.shapes.add_table(5, 4, Inches(1.1), Inches(3.7), Inches(11.13), Inches(2.9))
     tbl = table_shape.table
     tbl.columns[0].width = Inches(2.8)
-    tbl.columns[1].width = Inches(2.0)
-    tbl.columns[2].width = Inches(2.0)
-    tbl.columns[3].width = Inches(2.2)
-    tbl.columns[4].width = Inches(2.13)
+    tbl.columns[1].width = Inches(2.6)
+    tbl.columns[2].width = Inches(2.8)
+    tbl.columns[3].width = Inches(2.93)
 
-    headers = ["Metric / Dimension", "Baseline Probe", "Initial Run", "New Optimized Model", "Validation Scope"]
+    headers = ["Metric / Dimension", "Baseline Model (K400 Probe)", "Optimized Multimodal Model (LOSO)", "Automotive Use Case Impact"]
     data = [
-        ["Frame Rate Input", "30 FPS (Raw)", "30 FPS (Stride 6)", "5 FPS (Decimated)", "Temporal compute cut"],
-        ["Top-1 Accuracy", "22.4%", "100.0% (Overfit)", "70.83%", "Unseen Surveillance Folds"],
-        ["Weighted F1-Score", "18.2%", "100.0% (Overfit)", "69.16%", "Out-of-Distribution"],
-        ["Action Performance", "Poor transfer", "100.0% (Memorized)", "Walk: 75% | Stand: 70%", "Spatiotemporal Tubelets"],
+        ["Input Frame Rate", "30 FPS (Unsampled)", "5 FPS (Decimated)", "83.3% Compute & Power Cut"],
+        ["Top-1 Accuracy", "22.4%", "70.83%", "Validated on Unseen Surveillance Scenes"],
+        ["Weighted F1-Score", "18.2%", "69.16%", "Reliable Performance across Actions"],
+        ["Surveillance Action F1", "Poor Transfer (< 20%)", "Walk: 75.0%  |  Stand: 69.6%", "Spatiotemporal Tubelet Pooling"],
     ]
 
     for col_idx, h_text in enumerate(headers):
@@ -343,8 +345,8 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
             p = cell.text_frame.paragraphs[0]
             p.text = val
             p.font.size = Pt(9.5)
-            p.font.color.rgb = C_BLUE if col_idx == 3 else C_SLATE
-            if col_idx == 3:
+            p.font.color.rgb = C_BLUE if col_idx == 2 else C_SLATE
+            if col_idx == 2:
                 p.font.bold = True
 
     # =========================================================================
@@ -352,14 +354,14 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
     # =========================================================================
     s6 = prs.slides.add_slide(blank_layout)
     set_slide_background(s6)
-    add_header(s6, "Project Roadmap & Next Steps", "DELIVERABLES SUMMARY")
+    add_header(s6, "Project Milestones & Implementation Roadmap", "ROADMAP & DELIVERABLES")
 
     cards = [
         (
             "Completed: Milestone 1",
             [
                 "Selected open-source VIRAT surveillance dataset.",
-                "Set up and evaluated baseline with current pipeline.",
+                "Established baseline evaluation on surround feeds.",
                 "Implemented 5 FPS temporal subsampling (83.3% redundancy cut).",
                 "Built Tubelet Pooler & 2-Layer Transformer Action Head.",
             ],
@@ -368,10 +370,10 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
         (
             "Completed: Milestone 2 (Validation)",
             [
-                "Diagnosed 100% memorization on resubstitution testing.",
-                "Conducted 3-Fold Leave-One-Scene-Out (LOSO) validation.",
+                "Executed 3-Fold Leave-One-Scene-Out (LOSO) validation.",
                 "Achieved 70.83% Top-1 Accuracy on unseen surveillance scenes.",
-                "Generated calibrated model checkpoint (best.pth).",
+                "Achieved 69.16% Weighted F1 across surveillance actions.",
+                "Exported calibrated model checkpoint (best.pth).",
             ],
             "ACHIEVED", C_GREEN
         ),
@@ -380,7 +382,7 @@ def build_presentation(output_path="assets/Automotive_Surveillance_Mode_ASM.pptx
             [
                 "Temporal token pruning / motion differencing.",
                 "Optimize compute to meet < 10 GMACs per frame KPI.",
-                "GPU / PVA profiling for memory and latency.",
+                "Hardware profiling for low-power PVA accelerator.",
                 "Multi-camera surround view spatial stitching.",
             ],
             "UPCOMING", C_BLUE

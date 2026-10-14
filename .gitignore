@@ -11,6 +11,8 @@ data/
 *.mkv
 *.pt
 
-# OS files
+# OS & Office lock files
 .DS_Store
 Thumbs.db
+~$*
+

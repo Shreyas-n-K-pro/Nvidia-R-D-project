@@ -118,8 +118,8 @@ def create_architecture_diagram(output_path="assets/asm_architecture_diagram.png
     draw_arrow(10.75, 1.9, 9.2, 1.0, color="#0284C7")
 
     # Legend / Watermark header
-    ax.text(0.5, 6.4, "Automotive Surveillance Mode (ASM) Architecture", fontsize=15, fontweight="bold", color="#0F172A")
-    ax.text(0.5, 6.1, "KLE Technological University & SAMSUNG (SEED Collaboration) — Unified Perception Pipeline", fontsize=9.5, color="#64748B")
+    ax.text(0.5, 6.4, "Optimised Multimodal Architecture for Automotive Use Cases (ASM)", fontsize=14, fontweight="bold", color="#0F172A")
+    ax.text(0.5, 6.1, "KLE Technological University & SAMSUNG (SEED Collaboration) — Develop & Validate Optimised Models", fontsize=9.5, color="#64748B")
 
     plt.tight_layout()
     out = Path(output_path)
