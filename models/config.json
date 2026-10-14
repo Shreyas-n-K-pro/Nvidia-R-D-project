@@ -1,0 +1,33 @@
+{
+  "num_epochs": 35,
+  "learning_rate": 0.001,
+  "batch_size": 6,
+  "device": "cpu",
+  "num_samples": 6,
+  "in_dim": 384,
+  "feature_dim": 384,
+  "hidden_dim": 384,
+  "num_layers": 2,
+  "best_epoch": 35,
+  "best_loss": 0.00063,
+  "classes": [
+    "Walking",
+    "Running",
+    "Standing",
+    "Sitting",
+    "Carrying_Object",
+    "Gesturing",
+    "Entering_Vehicle",
+    "Exiting_Vehicle",
+    "Opening_Trunk",
+    "Closing_Trunk",
+    "Loading_Vehicle",
+    "Unloading_Vehicle",
+    "Entering_Facility",
+    "Exiting_Facility",
+    "Talking",
+    "Handing_Off_Object",
+    "Riding_Bicycle",
+    "Background"
+  ]
+}

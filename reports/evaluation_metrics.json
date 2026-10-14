@@ -1,0 +1,39 @@
+{
+  "hardware": {
+    "device": "cpu",
+    "torch_version": "2.12.0+cpu"
+  },
+  "model": {
+    "name": "TemporalActionClassifier",
+    "total_params": 2473746,
+    "trainable_params": 2473746,
+    "checkpoint_size_mb": 9.44,
+    "num_classes": 18
+  },
+  "dataset_statistics": {
+    "total_videos": 3,
+    "sampled_frames": -3,
+    "person_detections": 77,
+    "vehicle_detections": 2250,
+    "extracted_actor_tubes": 57
+  },
+  "metrics": {
+    "top1_accuracy": 100.0,
+    "top5_accuracy": 100.0,
+    "macro_precision": 100.0,
+    "macro_recall": 100.0,
+    "macro_f1": 100.0,
+    "weighted_f1": 100.0,
+    "action_distribution": {
+      "Exiting_Vehicle": 19,
+      "Walking": 5,
+      "Running": 32,
+      "Standing": 1
+    }
+  },
+  "latency": {
+    "pooling_ms_per_frame": 2.21,
+    "action_inference_ms_per_tube": 0.52,
+    "throughput_tubes_per_sec": 1927.6
+  }
+}

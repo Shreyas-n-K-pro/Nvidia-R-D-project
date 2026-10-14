@@ -1,0 +1,69 @@
+{
+  "validation_strategy": "Leave-One-Scene-Out (LOSO) Cross-Validation",
+  "num_folds": 3,
+  "fold_details": {
+    "VIRAT_parking_active_cars_5fps": {
+      "held_out_scene": "VIRAT_parking_active_cars_5fps",
+      "train_samples": 32,
+      "val_samples": 16,
+      "train_loss": 0.6329,
+      "val_loss": 1.3463,
+      "train_acc": 97.66,
+      "val_acc": 81.25,
+      "overfitting_gap_acc": 16.41,
+      "overfitting_gap_loss": 0.7134
+    },
+    "VIRAT_parking_lot_cars_2_5fps": {
+      "held_out_scene": "VIRAT_parking_lot_cars_2_5fps",
+      "train_samples": 36,
+      "val_samples": 12,
+      "train_loss": 0.6127,
+      "val_loss": 1.1011,
+      "train_acc": 98.61,
+      "val_acc": 50.0,
+      "overfitting_gap_acc": 48.61,
+      "overfitting_gap_loss": 0.4885
+    },
+    "VIRAT_parking_scene_000203_5fps": {
+      "held_out_scene": "VIRAT_parking_scene_000203_5fps",
+      "train_samples": 28,
+      "val_samples": 20,
+      "train_loss": 0.8901,
+      "val_loss": 1.1259,
+      "train_acc": 89.29,
+      "val_acc": 75.0,
+      "overfitting_gap_acc": 14.29,
+      "overfitting_gap_loss": 0.2357
+    }
+  },
+  "out_of_fold_metrics": {
+    "unseen_top1_accuracy": 70.83,
+    "unseen_macro_precision": 47.32,
+    "unseen_macro_recall": 49.49,
+    "unseen_macro_f1": 48.19,
+    "unseen_weighted_f1": 69.16,
+    "overfitting_gap_accuracy": 26.44
+  },
+  "confusion_matrix": [
+    [
+      18,
+      0,
+      4
+    ],
+    [
+      0,
+      0,
+      2
+    ],
+    [
+      8,
+      0,
+      16
+    ]
+  ],
+  "classes": [
+    "Walking",
+    "Running",
+    "Standing"
+  ]
+}
