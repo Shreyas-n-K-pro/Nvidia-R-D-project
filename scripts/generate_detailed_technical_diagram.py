@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Generate a clean technical architecture diagram with zero badge/text collisions.
+"""Generate a clean technical architecture diagram with compact, right-aligned badge pills.
 
-Key architectural improvements:
-1. Two-Row Card Headers: Card titles are on row 1, and badges/tags are placed on their own dedicated row or clearly separated right margin without overlapping long titles.
-2. Outer Panel Headers: Title on the left, subtitle pushed far to the right, with generous top padding so no text collides with card boundaries.
-3. Clean Arrow Corridors: All labels and arrows routed without passing over text or panel borders.
+- Inner width of badges (RAW INPUT, 5 FPS, PERSISTENT, RAM POOL, PATCHIFIED, etc.) is reduced.
+- Badges are shifted rightwards into their own dedicated corner (flush with right margin).
+- Card titles have ample space on the left and cannot collide with the badge pills.
 """
 from pathlib import Path
 import matplotlib.pyplot as plt
@@ -31,13 +30,12 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
             zorder=1
         )
         ax.add_patch(rect)
-        # Title on left, subtitle on far right with clean margins
         ax.text(x + 0.35, y + h - 0.40, title.upper(), ha="left", va="center", fontsize=9.2, fontweight="bold", color=header_color, zorder=2)
         if subtitle:
             ax.text(x + w - 0.35, y + h - 0.40, subtitle, ha="right", va="center", fontsize=7.8, style="italic", color="#64748B", zorder=2)
 
     def draw_card(x, y, w, h, title, tag="", lines=None, shape_info="", box_color="#FFFFFF", border_color="#94A3B8", title_color="#0F172A", zorder=3):
-        """Draw an inner card with a clean header row and a dedicated pill badge."""
+        """Draw an inner card with a compact, right-shifted tag pill and clear title area."""
         rect = patches.FancyBboxPatch(
             (x, y), w, h,
             boxstyle="round,pad=0.08,rounding_size=0.14",
@@ -48,26 +46,27 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
         )
         ax.add_patch(rect)
         
-        # Title on left (sized so it never clashes with badge)
-        ax.text(x + 0.25, y + h - 0.35, title, ha="left", va="center", fontsize=9.2, fontweight="bold", color=title_color, zorder=zorder+1)
-
-        # Dedicated Tag Pill in the top-right corner
+        # Compact Tag Pill shifted to the far right margin
         if tag:
-            badge_w = len(tag) * 0.10 + 0.30
-            badge_x = x + w - badge_w - 0.20
-            badge_y = y + h - 0.50
+            # Reduced inner width: compact character spacing (0.075 per char + 0.16 padding)
+            badge_w = len(tag) * 0.075 + 0.18
+            badge_x = x + w - badge_w - 0.12  # Shifted right against the border
+            badge_y = y + h - 0.46
             b_rect = patches.FancyBboxPatch(
-                (badge_x, badge_y), badge_w, 0.28,
-                boxstyle="round,pad=0.02,rounding_size=0.08",
+                (badge_x, badge_y), badge_w, 0.24,
+                boxstyle="round,pad=0.015,rounding_size=0.06",
                 facecolor=border_color,
                 edgecolor="none",
                 zorder=zorder+1
             )
             ax.add_patch(b_rect)
-            ax.text(badge_x + badge_w/2, badge_y + 0.14, tag, ha="center", va="center", fontsize=6.8, fontweight="bold", color="#FFFFFF", zorder=zorder+2)
+            ax.text(badge_x + badge_w/2, badge_y + 0.12, tag, ha="center", va="center", fontsize=6.2, fontweight="bold", color="#FFFFFF", zorder=zorder+2)
 
-        # Shape information line (with guaranteed vertical clearance)
-        y_curr = y + h - 0.72
+        # Title positioned on the left with safe bound
+        ax.text(x + 0.25, y + h - 0.34, title, ha="left", va="center", fontsize=9.0, fontweight="bold", color=title_color, zorder=zorder+1)
+
+        # Shape information line
+        y_curr = y + h - 0.70
         if shape_info:
             ax.text(x + 0.25, y_curr, f"Shape: {shape_info}", ha="left", va="center", fontsize=7.8, fontweight="bold", color="#2563EB", zorder=zorder+1)
             y_curr -= 0.32
@@ -100,8 +99,6 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
 
     # =========================================================================
     # STAGE 1: CAMERA INGESTION & TEMPORAL DECIMATION (Column 1)
-    # Outer Panel: y = 6.2, h = 6.0 (Top at 12.2)
-    # Header at 11.80 -> Top card starts at 9.3 (0.90 units clearance)
     # =========================================================================
     draw_panel(0.8, 6.2, 4.1, 6.0, "Stage 1: Ingestion & Decimation", "Surround Video Ingestion", "#F1F5F9", "#CBD5E1")
 
@@ -125,8 +122,6 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
 
     # =========================================================================
     # STAGE 2: SHARED DINOv2 BACKBONE (Column 2)
-    # Outer Panel: y = 6.2, h = 6.0 (Top at 12.2)
-    # Header at 11.80 -> Top card starts at 9.3
     # =========================================================================
     draw_panel(5.3, 6.2, 4.4, 6.0, "Stage 2: Vision Transformer", "DINOv2 ViT-S/14", "#F0FDF4", "#BBF7D0")
 
@@ -150,8 +145,7 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
     draw_arrow(7.5, 9.3, 7.5, 9.0, color="#15803D")
 
     # =========================================================================
-    # CACHING SUBSYSTEMS (Bottom Left: y = 0.5, h = 5.3 -> Top at 5.8)
-    # Header at 5.40 -> Cards start at 1.0 (0.80 clearance below header)
+    # CACHING SUBSYSTEMS (Bottom Left)
     # =========================================================================
     draw_panel(0.8, 0.5, 8.9, 5.3, "System Caching Subsystems", "Storage & RAM Subsystem", "#F8FAFC", "#E2E8F0")
 
@@ -171,11 +165,10 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
         box_color="#FFFFFF", border_color="#0EA5E9", title_color="#0369A1"
     )
 
-    # Clean cache save arrow routed strictly without overlapping panel headers
     draw_arrow(5.6, 6.5, 3.2, 4.8, label="Offline Extraction Save", color="#6366F1", ls="--", rad=0.08, label_offset=(-0.1, 0.2))
 
     # =========================================================================
-    # STAGE 3A: ACTOR DETECTION & TRACKING (Top Middle-Right: y = 7.1, h = 5.1 -> Top at 12.2)
+    # STAGE 3A: ACTOR DETECTION & TRACKING (Top Middle-Right)
     # =========================================================================
     draw_panel(10.1, 7.1, 6.2, 5.1, "Stage 3A: Actor Detection & Tracking", "Head A (ViT-Adapter + YOLO)", "#FFFBEB", "#FDE68A")
 
@@ -199,7 +192,7 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
     draw_arrow(13.2, 9.8, 13.2, 9.4, color="#B45309")
 
     # =========================================================================
-    # STAGE 3B: SPATIOTEMPORAL TUBELET ACTION HEAD (Bottom Middle-Right: y = 0.5, h = 6.2 -> Top at 6.7)
+    # STAGE 3B: SPATIOTEMPORAL TUBELET ACTION HEAD (Bottom Middle-Right)
     # =========================================================================
     draw_panel(10.1, 0.5, 6.2, 6.2, "Stage 3B: Tubelet Action Head", "Head B (virat_action.py)", "#EEF2FF", "#C7D2FE")
 
@@ -233,7 +226,7 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
     draw_arrow(13.2, 2.7, 13.2, 2.4, color="#4338CA")
 
     # =========================================================================
-    # STAGE 4: EMBEDDED PVA TARGET & THREAT ENGINE (Far Right: y = 0.5, h = 11.7 -> Top at 12.2)
+    # STAGE 4: EMBEDDED PVA TARGET & THREAT ENGINE (Far Right)
     # =========================================================================
     draw_panel(16.8, 0.5, 6.4, 11.7, "Stage 4: Embedded Target & Assessment", "Automotive Hardware Execution", "#F8FAFC", "#BAE6FD")
 
@@ -261,7 +254,6 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
         box_color="#FEFCE8", border_color="#EAB308", title_color="#A16207"
     )
 
-    # Connections to Stage 4 (Clean curved routing)
     draw_arrow(16.0, 8.5, 17.1, 10.5, label="Detections & Tracks", color="#B45309", rad=0.08, label_offset=(-0.1, 0.2))
     draw_arrow(16.0, 1.6, 17.1, 9.7, label="Action Probabilities", color="#4338CA", rad=-0.22, label_offset=(0.1, -0.2))
     draw_arrow(20.0, 9.3, 20.0, 8.8, color="#0284C7")
@@ -277,7 +269,7 @@ def create_diagram(output_path="assets/asm_detailed_technical_architecture.png")
     out.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(out, bbox_inches="tight", dpi=300)
     plt.close()
-    print(f"Diagram regenerated with zero collisions at: {out}")
+    print(f"Diagram regenerated with compact badges at: {out}")
 
 if __name__ == "__main__":
     create_diagram()
